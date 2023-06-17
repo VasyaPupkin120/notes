@@ -1,3 +1,10 @@
-h1 {
-    color:#adfe23;
+body {
+    background-color: #EEE8AA;
+}
+
+header, h1 {
+    font-size: 30pt;
+    text-transform: uppercase;
+    text-align: center;
+    background: url("logo.jpg") left / auto 100% no-repeat;
 }

@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 django = "^4.2.2"
 bpython = "^0.24"
+django-bootstrap4 = "^23.1"
 
 
 [build-system]
