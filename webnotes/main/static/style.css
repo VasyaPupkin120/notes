@@ -1,10 +1,125 @@
-body {
-    background-color: #EEE8AA;
-}
-
-header, h1 {
-    font-size: 30pt;
+/* хедер */
+head, h1 {
+    margin-top: 10px;
+    font: italic small-caps bold 60px/2 cursive;
     text-transform: uppercase;
     text-align: center;
     background: url("logo.jpg") left / auto 100% no-repeat;
+}
+
+
+
+/* body */
+.body-base-color{
+    background: #BDB76B;
+}
+
+.border-grey{
+    border-color: #778899 !important;
+}
+
+
+
+/* панель навигации */
+.navbar-base-color{
+    background: #F0E68C;
+    color: #778899;
+}
+
+.nav-link , .navbar-brand{
+ color: #778899;
+ cursor: pointer;
+}
+
+.nav-link{
+ margin-right: 1em !important;
+}
+
+.nav-link:hover{
+ background: #778899;
+ color: #F0E68C;
+}
+
+.navbar-collapse{
+ justify-content: flex-end;
+}
+
+.navbar-toggler{
+  background:#fff !important;
+}
+
+
+
+.dropdown-menu-color{
+    background: #F0E68C;
+    color: #778899;
+}
+
+.dropdown-item-color{
+    background: #F0E68C;
+    color: #778899;
+}
+
+.dropdown-item-color:hover{
+    background: #778899;
+    color: #F0E68C;
+}
+
+
+
+/* надоело искать где там цвет подменяется на зеленый,
+залочил вообще все цвета */
+.navbar-search-button-color{
+    background: #F0E68C !important;
+    border-color: #778899 !important;
+    color: #778899 !important;
+}
+
+.navbar-search-button-color:hover{
+    background: #778899 !important;
+    border-color: #F0E68C !important;
+    color: #F0E68C !important;
+}
+
+.navbar-search-button-color:focus{
+    background: #BDB76B !important;
+    color: ##778899 !important;
+    border-color: #778899 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.navbar-search-button-color:active{
+    background: #F0E68C !important;
+    border-color: #778899 !important;
+    color: #778899 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.navbar-search-field-color{
+    background: #BDB76B !important;
+    color: #778899 !important;
+}
+
+
+
+
+/* основной блок */
+.content-base-color{
+    background: #F0E68C;
+    color: #778899;
+}
+
+
+
+/* футер */
+.footer-base-color{
+    background: #F0E68C;
+    color: #778899;
+}
+
+.footer-link{
+    color: #778899;
+    text-decoration: underline dotted;
 }
