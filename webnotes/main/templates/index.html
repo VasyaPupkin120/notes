@@ -1,144 +1,40 @@
-{% load static %}
-{% load bootstrap4 %}
+{% extends "basic_template.html" %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Заметки</title>
-        {% bootstrap_css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-        {% bootstrap_javascript jquery='slim' %}
-    </head>
-    <body class="container-fluid body-base-color">
-        <h1 class="page-header">Заметки</h1>
+{% block content %}
+<!-- Блок основного контента -->
+<br>
+<div class="container-fluid content-base-color">
+    <div class="row border border-grey">
 
-        <!-- Блок горизонтальной навигации -->
-        <nav class="navbar navbar-base-color border border-grey navbar-expand-lg">
-            <a class="navbar-brand" href="/">Главная</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-           </button>
-           <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-4">
-                    <!-- % if user.is_authenticated %} -->
-                    {% if 1 %}
-                        <li class="dropdown show nav-item">
-                            <a class="nav-link dropdown-toggle"
-                                href="#"
-                                role="button"
-                                id="dropdownMenuLink"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">Профиль</a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-color" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item dropdown-item-color" href="#">Мои заметки</a>
-                                    <a class="dropdown-item dropdown-item-color" href="#">Добавить заметки</a>
-                                    <div class="dropdown-divider dropdown-item-color"></div>
-                                    <a class="dropdown-item dropdown-item-color" href="#">Изменить личные данные</a>
-                                    <a class="dropdown-item dropdown-item-color" href="#">Изменить пароль</a>
-                                    <a class="dropdown-item dropdown-item-color" href="#">Удалить профиль</a>
-                                    <div class="dropdown-divider dropdown-item-color"></div>
-                                    <a class="dropdown-item dropdown-item-color" href="#">Выйти</a>
-                                    <div class="dropdown-divider dropdown-item-color"></div>
-                                    <a class="dropdown-item dropdown-item-color" href="/admin">Админка</a>
-                                </div>
-                        </li>
-                        <li>
-                        <form class="form-inline my-2 my-lg-0">
-                              <input class="form-control mr-sm-2 navbar-search-field-color" type="text" placeholder="Search" aria-label="Search">
-                              <button class="btn btn-outline-success my-2 my-sm-0 navbar-search-button-color" type="submit">Search</button>
-                            </form>
-                        </li>
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link" href="#">Вход</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
-                    {% endif %}
-                </ul>
-              </div>
-        </nav>
-        <!-- Конец блока горизонтальной навигации -->
-
-        <!-- Блок основного контента -->
-        <br>
-        <div class="container-fluid content-base-color">
-            <div class="row border border-grey">
-
-                <!-- Поле перехода наверх -->
-                <div class="col-1 border border-grey">
-                    <p>поле для перехода вверх</p>
-                </div>
-
-                <!-- Поле основного контента -->
-                <div class="col-9 border border-grey">
-                    <br>
-                    <p>Заметка1</p>
-                    <hr>
-                    <p>Заметка1</p>
-                    <hr>
-                    <p>Заметка1</p>
-                    <hr>
-                    <p>Заметка1</p>
-                </div>
-
-                <!-- Поле облака тегов -->
-                <div class="col-2 border border-grey">
-                    <p>
-                    <a href="#">Linux</a>
-                    <a href="#">Python</a>
-                    <a href="#">OpenVPN</a>
-                    <a href="#">VIM</a>
-                    <a href="#">Django</a>
-                    <a href="#">CSS</a>
-                    </p>
-                </div>
-            </div>
+        <!-- Поле перехода наверх -->
+        <div class="col-1 border border-grey">
+            <p>поле для перехода вверх</p>
         </div>
-        <!-- Конец блока основного контента -->
 
-        <!-- Блок футера -->
-        <br>
-        <footer class="page-footer font-small  pt-4 footer-base-color border border-grey">
-            <!-- контент и ссылки -->
-            <div class="container-fluid text-center text-md-left">
-                <div class="row">
-                    <div class="col-md-6 mt-md-0 mt-3">
-                      <h5 class="text-uppercase">Footer Content</h5>
-                      <p>Here you can use rows and columns to organize your footer content.</p>
-                    </div>
-                    <hr class="clearfix w-100 d-md-none pb-3">
-                    <div class="col-md-3 mb-md-0 mb-3">
-                      <h5 class="text-uppercase">Links</h5>
-                      <ul class="list-unstyled">
-                        <li> <a class="footer-link" href="#!">Link 1</a> </li>
-                        <li> <a class="footer-link" href="#!">Link 2</a> </li>
-                      </ul>
-                    </div>
-                    <div class="col-md-3 mb-md-0 mb-3">
-                      <h5 class="text-uppercase">Links</h5>
-                      <ul class="list-unstyled">
-                        <li> <a class="footer-link" href="#!">Link 1</a> </li>
-                        <li> <a class="footer-link" href="#!">Link 2</a> </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-            <!-- Копирайт -->
-            <div class="footer-copyright text-center py-3">© 2023 Copyright:
-              <a href="/">Notes.some</a>
-            </div>
-        </footer>
-        <!-- Конец блока футера -->
+        <!-- Поле основного контента -->
+        <div class="col-9 border border-grey">
+            <br>
+            <p>Заметка1</p>
+            <hr>
+            <p>Заметка1</p>
+            <hr>
+            <p>Заметка1</p>
+            <hr>
+            <p>Заметка1</p>
+        </div>
 
-
-
-    </body>
-</html>
+        <!-- Поле облака тегов -->
+        <div class="col-2 border border-grey">
+            <p>
+            <a href="#">Linux</a>
+            <a href="#">Python</a>
+            <a href="#">OpenVPN</a>
+            <a href="#">VIM</a>
+            <a href="#">Django</a>
+            <a href="#">CSS</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Конец блока основного контента -->
+{% endblock %}
