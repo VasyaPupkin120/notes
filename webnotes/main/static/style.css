@@ -123,3 +123,12 @@ head, h1 {
     color: #778899;
     text-decoration: underline dotted;
 }
+
+
+
+
+/* стили заметок */
+
+.note-head{
+    font: italic small-caps bold 20px/2 fantasy;
+}

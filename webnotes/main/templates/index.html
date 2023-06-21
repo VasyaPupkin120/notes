@@ -13,25 +13,20 @@
 
         <!-- Поле основного контента -->
         <div class="col-9 border border-grey">
-            <br>
-            <p>Заметка1</p>
             <hr>
-            <p>Заметка1</p>
-            <hr>
-            <p>Заметка1</p>
-            <hr>
-            <p>Заметка1</p>
+            {% for note in notes_list %}
+                <p class="note-head">{{ note.title }}</p>
+                <p>{{ note.content }}</p>
+                <hr>
+                {% endfor %}
         </div>
 
         <!-- Поле облака тегов -->
         <div class="col-2 border border-grey">
             <p>
-            <a href="#">Linux</a>
-            <a href="#">Python</a>
-            <a href="#">OpenVPN</a>
-            <a href="#">VIM</a>
-            <a href="#">Django</a>
-            <a href="#">CSS</a>
+            {% for tag in tags_list %}
+                {{ tag.name }}
+                {% endfor %}
             </p>
         </div>
     </div>
