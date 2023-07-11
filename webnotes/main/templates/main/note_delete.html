@@ -1,0 +1,31 @@
+{% extends "layout/basic.html" %}
+
+{% block content %}
+    <p>Точно удалить заметку?</p>
+
+    <div class="card border-dark my-3">
+        <div class="card-header card-dark-color">
+            <div class="container mx-0">
+              <div class="row">
+                <div class="col-sm d-flex justify-content-start mt-2">
+                  {{ note.created_at }}
+                </div>
+                <div class="col-sm d-flex justify-content-end">
+                    {% for tag in note.tags.all %}
+                    <a href="{{ tag.get_absolute_url }}" class="btn btn-light mx-1 tag-button-color">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="card-body card-light-color">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p class="card-text">{{ note.content }}</p>
+        </div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-light mx-1 tag-button-color" value="Удалить">
+    </form>
+{% endblock %}

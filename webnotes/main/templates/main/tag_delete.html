@@ -1,0 +1,19 @@
+{% extends "layout/basic.html" %}
+
+{% block content %}
+    <p>Точно удалить тэг? (Связанные заметки не будут удалены)</p>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-2 d-flex justify-content-start">
+                <a href="{{ tag.get_absolute_url }}" class="btn btn-light tag-button-color">{{ tag.name }}</a>
+            </div>
+            <div class="col-2">
+                {{ tag.note_set.count }} заметок
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-light mx-1 tag-button-color" value="Удалить">
+    </form>
+{% endblock %}

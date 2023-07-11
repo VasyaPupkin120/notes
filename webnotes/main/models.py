@@ -1,41 +1,60 @@
 from django.db import models
+from django.urls import reverse_lazy
 
-# Create your models here.
+from django.utils.text import slugify
+from time import time
+
+def gen_slug(slug):
+    new_slug = slugify(slug, allow_unicode=True)
+    return new_slug + "-" + str(int(time()))
+
 
 class Note(models.Model): 
     """
     Собственно одна заметка
     """
-    title = models.CharField(
-            max_length=256,
-            verbose_name="Заголовок заметки",
-            )
-    content = models.TextField(
-            verbose_name="Содержание заметки",
-            )
-    created_at = models.DateTimeField(
-            auto_now_add=True,
-            db_index=True,
-            verbose_name="Дата, время создания",
-            )
+    slug = models.SlugField(max_length=50, db_index=True, blank=True, null=True, unique=True, verbose_name="Слаг заметки", )
+    title = models.CharField(max_length=256, verbose_name="Заголовок заметки",)
+    content = models.TextField(verbose_name="Содержание заметки",)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Дата, время создания",)
+    tags = models.ManyToManyField("Tag",)
+
+    def __str__(self):
+        return f"note: {self.title}"
+
+    def get_absolute_url(self):
+        return reverse_lazy("note_read", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):
+        # если запись в БД есть - то слаг пересоздавать не нужно - это для случая редактирования заметки
+        if not self.id:
+            self.slug = gen_slug(self.title)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-created_at',]
+
+
 
 class Tag(models.Model):
     """
     Модель тега
     """
+    def __str__(self):
+        return self.name
+
+    slug = models.SlugField(max_length=50, db_index=True, blank=True, null=True, unique=True, verbose_name="Слаг тэга", )
     name = models.CharField(
             max_length=30,
             db_index=True,
             unique=True,
             verbose_name="Название тега",
             )
-    notes = models.ManyToManyField(Note,)
 
-# class LinkTag(models.Model):
-#     """
-#     Связующая модель
-#     """
-#     tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
-#     note = models.ForeignKey(Note, on_delete=models.CASCADE)
-#     count = models.IntegerField()
+    def save(self, *args, **kwargs):
+        # слаг тэга пересоздается в том числе при редактировании
+        self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse_lazy("tag_items", kwargs={"slug": self.slug})

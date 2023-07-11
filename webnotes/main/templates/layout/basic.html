@@ -17,6 +17,7 @@
         <!-- Блок горизонтальной навигации -->
         <nav class="navbar navbar-base-color border border-grey navbar-expand-lg">
             <a class="navbar-brand" href="/">Главная</a>
+            <a class="navbar-brand" href="{% url "note_create" %}">Добавить заметку</a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -67,9 +68,35 @@
         </nav>
         <!-- Конец блока горизонтальной навигации -->
 
-        {% bootstrap_messages %}
-        {% block content %}
-        {% endblock %}
+        <!-- Поле основного контента -->
+        <br>
+        <div class="container-fluid content-base-color">
+            <div class="row border border-grey">
+
+                <!-- Блок основного контента -->
+                <div class="col-10 border border-grey">
+                    <p class="my-3"></p>
+                    {% block content %}
+                    {% endblock %}
+                    <p class="my-3"></p>
+                </div>
+
+                <!-- Поле облака тегов -->
+                <div class="col-2 border border-grey">
+                    <div class="mt-3">
+                    {% for tag in tags_cloud %}
+                        <a href="{{ tag.get_absolute_url }}" class="btn btn-light tag-button-color my-1">{{ tag.name }}</a>
+                    {% endfor %}
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-around align-self-end my-3">
+                        <a href="{% url "tag_list" %}" class="btn btn-light tag-button-color">Список тэгов</a>
+                        <a href="{% url "tag_create" %}" class="btn btn-light tag-button-color">Добавить тэг</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Конец блока основного контента -->
 
         <!-- Блок футера -->
         <br>
@@ -106,6 +133,31 @@
         <!-- Конец блока футера -->
 
 
-
+        <!-- кнопка прокрутки вверх -->
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Вверх</button> 
     </body>
+
+
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        } 
+    </script>
+
 </html>
+
+
+
