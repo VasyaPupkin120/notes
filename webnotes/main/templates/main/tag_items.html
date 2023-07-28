@@ -1,6 +1,6 @@
-{% extends "layout/basic.html" %}
+{% extends "main/base_main.html" %}
 {% block content %}
 {% for note in notes_list %}
-    {% include "includes/short_card.html" %}
+    {% include "main/includes/short_card.html" %}
 {% endfor %}
 {% endblock %}
