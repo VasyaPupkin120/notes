@@ -178,7 +178,7 @@ head, h1 {
     z-index: 99; /* Make sure it does not overlap */
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
-    background-color: #006400; /* Set a background color */
+    background-color: #BDB76B; /* Set a background color */
     color: #778899; /* Text color */
     cursor: pointer; /* Add a mouse pointer on hover */
     padding: 15px; /* Some padding */
@@ -187,5 +187,5 @@ head, h1 {
 }
 
 #myBtn:hover {
-    background-color: #BDB76B; /* Add a dark-grey background on hover */
+    background-color: #FFE4B5; /* Add a dark-grey background on hover */
 }
