@@ -9,18 +9,18 @@ class NoteAddForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label="Список тегов", widget=forms.CheckboxSelectMultiple, required=True)
 
 
-    title.widget.attrs.update({"class": "form-control"})
-
-
     class Meta:
         model = Note
         fields = ('title', 'content', 'tags')
+        widgets = {
+                "title": forms.TextInput(attrs={"class": "form-control"}),
+                "content": forms.Textarea(attrs={"class": "form-control"}),
+                }
 
 
 class TagAddForm(forms.ModelForm):
     name = forms.CharField(label="Тэг")
     # slug = forms.SlugField(label="Слаг")
-    name.widget.attrs.update({"class": "form-control"})
 
     def clean_slug(self):
         new_slug = self.cleaned_data['slug'].lower()
@@ -33,3 +33,6 @@ class TagAddForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ('name',)
+        widgets = {
+                "name": forms.TextInput(attrs={"class": "form-control"}),
+                }
