@@ -83,8 +83,8 @@ class TagList(ListView):
         return context
 
 
-class TagItems(ListView):
-    template_name = "main/tag_items.html"
+class TagLinkPosts(ListView):
+    template_name = "main/tag_link_posts.html"
     context_object_name = "notes_list"
 
     def get_queryset(self):
@@ -94,7 +94,6 @@ class TagItems(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["tags_cloud"] = Tag.objects.all()
-        # context["notes_list"] = Note.objects.all()
         return context
 
 

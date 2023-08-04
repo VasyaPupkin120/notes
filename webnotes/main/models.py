@@ -57,4 +57,4 @@ class Tag(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse_lazy("tag_items", kwargs={"slug": self.slug})
+        return reverse_lazy("tag_link_posts", kwargs={"slug": self.slug})
