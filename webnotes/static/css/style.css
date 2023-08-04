@@ -4,7 +4,7 @@ head, h1 {
     font: italic small-caps bold 60px/2 cursive;
     text-transform: uppercase;
     text-align: center;
-    background: url("logo.jpg") left / auto 100% no-repeat;
+    background: url("/static/logo.jpg") left / auto 100% no-repeat;
 }
 
 
