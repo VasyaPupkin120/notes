@@ -1,0 +1,7 @@
+{% extends "main/base_main.html" %}
+
+{% block content %}
+{% for note in notes_list %}
+    {% include "main/includes/short_card.html" %}
+{% endfor %}
+{% endblock %}

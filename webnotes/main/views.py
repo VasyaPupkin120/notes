@@ -1,4 +1,4 @@
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
@@ -119,3 +119,19 @@ class TagDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context["tags_cloud"] = Tag.objects.all()
         return context
+
+
+class SearchList(ListView):
+    template_name = "main/search_list.html"
+    model = Note
+    context_object_name = "notes_list"
+
+    # для отладки 
+    # def get(self, *args, **kwargs):
+    #     print(self.queryset)
+    #     return super().get(*args, **kwargs)
+
+    def get_queryset(self):
+        query = self.request.GET.get("field_search")
+        notes_list = Note.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+        return notes_list

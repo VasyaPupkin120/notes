@@ -18,6 +18,9 @@
         <nav class="navbar navbar-base-color border border-grey navbar-expand-lg">
             <a class="navbar-brand" href="/">Главная</a>
             <a class="navbar-brand" href="{% url "note_create" %}">Добавить заметку</a>
+            {% if request.user.is_staff %}
+                <a class="navbar-brand" href="/admin">Админка</a>
+            {% endif %}
             <button
                 class="navbar-toggler"
                 type="button"
@@ -30,8 +33,7 @@
            </button>
            <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav mr-4">
-                    <!-- % if user.is_authenticated %} -->
-                    {% if 1 %}
+                    {% if request.user.is_authenticated %}
                         <li class="dropdown show nav-item">
                             <a class="nav-link dropdown-toggle"
                                 href="#"
@@ -49,13 +51,11 @@
                                     <a class="dropdown-item dropdown-item-color" href="#">Удалить профиль</a>
                                     <div class="dropdown-divider dropdown-item-color"></div>
                                     <a class="dropdown-item dropdown-item-color" href="#">Выйти</a>
-                                    <div class="dropdown-divider dropdown-item-color"></div>
-                                    <a class="dropdown-item dropdown-item-color" href="/admin">Админка</a>
                                 </div>
                         </li>
                         <li>
-                        <form class="form-inline my-2 my-lg-0">
-                              <input class="form-control mr-sm-2 navbar-search-field-color" type="text" placeholder="Search" aria-label="Search">
+                            <form class="form-inline my-2 my-lg-0" action={% url "search" %} method="get">
+                              <input class="form-control mr-sm-2 navbar-search-field-color" name="field_search" type="text" placeholder="Search..." aria-label="Search">
                               <button class="btn btn-outline-success my-2 my-sm-0 navbar-search-button-color" type="submit">Search</button>
                             </form>
                         </li>
@@ -110,14 +110,14 @@
                     </div>
                     <hr class="clearfix w-100 d-md-none pb-3">
                     <div class="col-md-3 mb-md-0 mb-3">
-                      <h5 class="text-uppercase">Links</h5>
+                      <h5 class="text-uppercase">Ссылки</h5>
                       <ul class="list-unstyled">
-                        <li> <a class="footer-link" href="#!">Link 1</a> </li>
-                        <li> <a class="footer-link" href="#!">Link 2</a> </li>
+                        <li> <a class="footer-link" href="/admin/">Панель администратора</a></li>
+                        <li> <a class="footer-link" href="https://github.com/VasyaPupkin120/notes/">Github</a></li>
                       </ul>
                     </div>
                     <div class="col-md-3 mb-md-0 mb-3">
-                      <h5 class="text-uppercase">Links</h5>
+                      <h5 class="text-uppercase">Ссылки</h5>
                       <ul class="list-unstyled">
                         <li> <a class="footer-link" href="#!">Link 1</a> </li>
                         <li> <a class="footer-link" href="#!">Link 2</a> </li>
@@ -127,7 +127,7 @@
                 </div>
             <!-- Копирайт -->
             <div class="footer-copyright text-center py-3">© 2023 Copyright:
-              <a href="/">Notes.some</a>
+              <a href="/">Notes</a>
             </div>
         </footer>
         <!-- Конец блока футера -->
