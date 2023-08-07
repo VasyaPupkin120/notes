@@ -189,3 +189,45 @@ head, h1 {
 #myBtn:hover {
     background-color: #FFE4B5; /* Add a dark-grey background on hover */
 }
+
+
+/* блок пагинации */
+.pagination-color {
+    background: #EEE8AA !important;
+    border-color: #778899 !important;
+    color: #778899 !important;
+} 
+.pagination-color:hover{
+    background: #778899 !important;
+    border-color: #EEE8AA !important;
+    color: #EEE8AA !important;
+}
+
+.pagination-color:focus{
+    background: #EEE8AA !important;
+    color: ##778899 !important;
+    border-color: #778899 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.pagination-color:active{
+    background: #EEE8AA !important;
+    border-color: #778899 !important;
+    color: #778899 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.pagination-active{
+    background: #778899 !important;
+    border-color: #EEE8AA !important;
+    color: #EEE8AA !important;
+}
+
+
+/* цвет поля информирующего об искомом слове */
+.search-info-color{
+    background: #EEE8AA;
+    color: #778899;
+    border-color: #778899 !important;
+}

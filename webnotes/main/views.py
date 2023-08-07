@@ -22,7 +22,7 @@ class Index(ListView):
     model = Note
     context_object_name = "notes_list"
     queryset = Note.objects.all()
-    paginate_by = 3
+    paginate_by = 2
 
 
 class NoteFormCreate(CreateView):
@@ -131,7 +131,7 @@ class SearchList(ListView):
     template_name = "main/search_list.html"
     model = Note
     context_object_name = "notes_list"
-    paginate_by = 3
+    # пока без пагинации
 
     # для отладки 
     # def get(self, *args, **kwargs):
@@ -143,3 +143,8 @@ class SearchList(ListView):
         #FIXME icontains для русских слов становится как contains - т.е. для учитывается регистр
         notes_list = Note.objects.filter(Q(title__icontains=search_request) | Q(content__icontains=search_request))
         return notes_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_request"] = self.request.GET.get("field_search", "")
+        return context
