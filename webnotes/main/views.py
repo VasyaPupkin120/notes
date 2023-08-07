@@ -9,11 +9,20 @@ from .models import Tag, Note
 from .forms import NoteAddForm, TagAddForm
 
 
-def index(request):
-    notes_list = Note.objects.all()
-    tags_cloud = Tag.objects.all()
-    context = {"notes_list": notes_list, "tags_cloud": tags_cloud}
-    return render(request, 'main/index.html', context=context)
+# чтоб не забыть как выглядят функции-обработчики
+# def index(request):
+#     notes_list = Note.objects.all()
+#     tags_cloud = Tag.objects.all()
+#     context = {"notes_list": notes_list, "tags_cloud": tags_cloud}
+#     return render(request, 'main/index.html', context=context)
+
+
+class Index(ListView):
+    template_name = "main/index.html"
+    model = Note
+    context_object_name = "notes_list"
+    queryset = Note.objects.all()
+    paginate_by = 3
 
 
 class NoteFormCreate(CreateView):
@@ -58,13 +67,10 @@ class NoteDelete(DeleteView):
         return context
 
 
-
-
-
 class TagFormCreate(CreateView):
     template_name = "main/tag_create.html"
     form_class = TagAddForm
-    success_url = "/"
+    success_url = reverse_lazy("tag_list")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,7 +107,7 @@ class TagUpdate(UpdateView):
     model = Tag
     template_name = "main/tag_update.html"
     form_class = TagAddForm
-    success_url = "/"
+    success_url = reverse_lazy("tag_list")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -125,6 +131,7 @@ class SearchList(ListView):
     template_name = "main/search_list.html"
     model = Note
     context_object_name = "notes_list"
+    paginate_by = 3
 
     # для отладки 
     # def get(self, *args, **kwargs):
@@ -132,6 +139,7 @@ class SearchList(ListView):
     #     return super().get(*args, **kwargs)
 
     def get_queryset(self):
-        query = self.request.GET.get("field_search")
-        notes_list = Note.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+        search_request = self.request.GET.get("field_search", "")
+        #FIXME icontains для русских слов становится как contains - т.е. для учитывается регистр
+        notes_list = Note.objects.filter(Q(title__icontains=search_request) | Q(content__icontains=search_request))
         return notes_list

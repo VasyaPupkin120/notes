@@ -4,7 +4,7 @@ from .views import *
 
 #app_name = "main"
 urlpatterns = [
-        path('', index, name="index"),
+        path('', Index.as_view(), name="index"),
         path('note_create/', NoteFormCreate.as_view(), name="note_create"),
         path("note/<str:slug>/", NoteRead.as_view(), name="note_read"),
         path('note_update/<str:slug>', NoteUpdate.as_view(), name="note_update"),
