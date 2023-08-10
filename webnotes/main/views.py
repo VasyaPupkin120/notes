@@ -32,20 +32,11 @@ class NoteFormCreate(CreateView):
     form_class = NoteAddForm
     success_url = "/"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
-
 
 class NoteRead(DetailView):
     model = Note
     template_name = "main/note_read.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
 
 class NoteUpdate(UpdateView):
     model = Note
@@ -53,20 +44,11 @@ class NoteUpdate(UpdateView):
     form_class = NoteAddForm
     success_url = "/"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
 
 class NoteDelete(DeleteView):
     model = Note
     success_url = "/"
     template_name = "main/note_delete.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
 
 
 class TagFormCreate(CreateView):
@@ -74,21 +56,12 @@ class TagFormCreate(CreateView):
     form_class = TagAddForm
     success_url = reverse_lazy("tag_list")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
 
 class TagList(ListView):
     template_name = "main/tag_list.html"
     model = Tag
     context_object_name = "tags_list"
     queryset = Tag.objects.all()
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
 
 
 class TagLinkPosts(ListView):
@@ -100,11 +73,6 @@ class TagLinkPosts(ListView):
         tag = Tag.objects.get(slug__iexact=self.kwargs["slug"])
         return tag.note_set.all()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
-
 
 class TagUpdate(UpdateView):
     model = Tag
@@ -112,22 +80,12 @@ class TagUpdate(UpdateView):
     form_class = TagAddForm
     success_url = reverse_lazy("tag_list")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
-
 
 
 class TagDelete(DeleteView):
     model = Tag
     success_url = reverse_lazy("tag_list")
     template_name = "main/tag_delete.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tags_cloud"] = Tag.objects.all()
-        return context
 
 
 class SearchList(ListView):
@@ -150,11 +108,9 @@ class SearchList(ListView):
     def get_context_data(self, **kwargs):
         global search_request_global
         context = super().get_context_data(**kwargs)
-
         # это для сохранения значения из поля поиска - т.е. после первого перехода по пагинациям оно теряется
         # этот код сохраняет значение и использует до получения нового значения
         if self.request.GET.get("field_search", None):
             search_request_global = self.request.GET["field_search"]
         context["search_request"] = search_request_global
-
         return context
