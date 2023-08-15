@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 from django.utils.text import slugify
 from time import time
@@ -13,11 +14,12 @@ class Note(models.Model):
     """
     Собственно одна заметка
     """
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=50, db_index=True, blank=True, null=True, unique=True, verbose_name="Слаг заметки", )
     title = models.CharField(max_length=256, verbose_name="Заголовок заметки",)
     content = models.TextField(verbose_name="Содержание заметки",)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Дата, время создания",)
-    tags = models.ManyToManyField("Tag",)
+    tags = models.ManyToManyField("Tag", blank=True, null=True)
 
     def __str__(self):
         return f"note: {self.title}"
@@ -43,6 +45,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=50, db_index=True, blank=True, null=True, unique=True, verbose_name="Слаг тэга", )
     name = models.CharField(
             max_length=30,

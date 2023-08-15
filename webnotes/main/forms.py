@@ -15,6 +15,7 @@ class NoteAddForm(forms.ModelForm):
         widgets = {
                 "title": forms.TextInput(attrs={"class": "form-control"}),
                 "content": forms.Textarea(attrs={"class": "form-control"}),
+                "author": forms.HiddenInput,
                 }
 
 
@@ -35,4 +36,5 @@ class TagAddForm(forms.ModelForm):
         fields = ('name',)
         widgets = {
                 "name": forms.TextInput(attrs={"class": "form-control"}),
+                "author": forms.HiddenInput,
                 }

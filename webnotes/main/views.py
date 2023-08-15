@@ -1,9 +1,11 @@
+from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models import Q, QuerySet
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse, reverse_lazy
+from django.http import Http404
 
 from .models import Tag, Note
 from .forms import NoteAddForm, TagAddForm
@@ -23,8 +25,12 @@ class Index(ListView):
     template_name = "main/index.html"
     model = Note
     context_object_name = "notes_list"
-    queryset = Note.objects.all()
     paginate_by = 2
+
+    def get_queryset(self):
+        current_author = self.request.user.pk
+        notes_list = Note.objects.filter(author=current_author)
+        return notes_list
 
 
 class NoteFormCreate(CreateView):
@@ -32,10 +38,21 @@ class NoteFormCreate(CreateView):
     form_class = NoteAddForm
     success_url = "/"
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+
 
 class NoteRead(DetailView):
-    model = Note
     template_name = "main/note_read.html"
+
+    # ограничение записей для выбора одной только соответствующими аутентифицированному пользователю
+    def get_queryset(self):
+        current_author = self.request.user.pk
+        notes_list = Note.objects.filter(author=current_author)
+        return notes_list
 
 
 class NoteUpdate(UpdateView):
@@ -44,17 +61,40 @@ class NoteUpdate(UpdateView):
     form_class = NoteAddForm
     success_url = "/"
 
+    def get_queryset(self):
+        current_author = self.request.user.pk
+        notes_list = Note.objects.filter(author=current_author)
+        return notes_list
+
 
 class NoteDelete(DeleteView):
     model = Note
     success_url = "/"
     template_name = "main/note_delete.html"
 
+    def get_queryset(self):
+        current_author= self.request.user.pk
+        notes_list = Note.objects.filter(author=current_author)
+        return notes_list
+
+# @method_decorator(login_required, name="dispatch")
+# class CreateProductView(CreateView):
+#     template_name = "control/catalog/form-add.html"
+#     form_class = SellProductAlphaForm
+#     success_url = "/control/catalog/sell/edit/{id}"
+#
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super().form_valid(form)
 
 class TagFormCreate(CreateView):
     template_name = "main/tag_create.html"
     form_class = TagAddForm
     success_url = reverse_lazy("tag_list")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class TagList(ListView):
@@ -63,6 +103,11 @@ class TagList(ListView):
     context_object_name = "tags_list"
     queryset = Tag.objects.all()
 
+    def get_queryset(self):
+        current_author = self.request.user.pk
+        tags_list = Tag.objects.filter(author=current_author)
+        return tags_list
+
 
 class TagLinkPosts(ListView):
     template_name = "main/tag_link_posts.html"
@@ -70,8 +115,14 @@ class TagLinkPosts(ListView):
     paginate_by = 2
 
     def get_queryset(self):
-        tag = Tag.objects.get(slug__iexact=self.kwargs["slug"])
-        return tag.note_set.all()
+        current_author = self.request.user.pk
+        filter_author = Q(author=current_author)
+        filter_list_posts = Q(slug__iexact=self.kwargs["slug"])
+        tags = Tag.objects.filter(filter_author & filter_list_posts) # в получившемся qeryset'е либо один тег либо нет тегов 
+        if tags:
+            return tags[0].note_set.all()
+        else:
+            raise Http404
 
 
 class TagUpdate(UpdateView):
@@ -80,12 +131,22 @@ class TagUpdate(UpdateView):
     form_class = TagAddForm
     success_url = reverse_lazy("tag_list")
 
+    def get_queryset(self):
+        current_author = self.request.user.pk
+        tags_list = Tag.objects.filter(author=current_author)
+        return tags_list
+
 
 
 class TagDelete(DeleteView):
     model = Tag
     success_url = reverse_lazy("tag_list")
     template_name = "main/tag_delete.html"
+
+    def get_queryset(self):
+        current_author = self.request.user.pk
+        tags_list = Tag.objects.filter(author=current_author)
+        return tags_list
 
 
 class SearchList(ListView):
@@ -100,9 +161,12 @@ class SearchList(ListView):
     #     return super().get(*args, **kwargs)
 
     def get_queryset(self):
-        search_request = self.request.GET.get("field_search", "")
         #FIXME icontains для русских слов становится как contains - т.е. для учитывается регистр
-        notes_list = Note.objects.filter(Q(title__icontains=search_request) | Q(content__icontains=search_request))
+        search_request = self.request.GET.get("field_search", "")
+        current_author = self.request.user.pk
+        filter_author = Q(author=current_author)
+        filter_search_posts = Q(title__icontains=search_request) | Q(content__icontains=search_request)
+        notes_list = Note.objects.filter(filter_author & filter_search_posts)
         return notes_list
 
     def get_context_data(self, **kwargs):
@@ -114,3 +178,19 @@ class SearchList(ListView):
             search_request_global = self.request.GET["field_search"]
         context["search_request"] = search_request_global
         return context
+
+
+
+class LoginPage(LoginView):
+    template_name = "main/auth_login.html"
+    
+
+class LogoutPage(LogoutView):
+    template_name = "main/auth_logout.html"
+
+
+
+
+
+
+

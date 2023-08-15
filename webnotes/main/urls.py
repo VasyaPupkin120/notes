@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 
 
-#app_name = "main"
+
 urlpatterns = [
         path('', Index.as_view(), name="index"),
         path('note_create/', NoteFormCreate.as_view(), name="note_create"),
@@ -15,4 +15,7 @@ urlpatterns = [
         path('tag_update/<str:slug>', TagUpdate.as_view(), name="tag_update"),
         path('tag_list/', TagList.as_view(), name="tag_list"),
         path('search/', SearchList.as_view(), name="search"),
+        path('login/', LoginPage.as_view(), name="login"),
+        path('logout/', LogoutPage.as_view(), name="logout"),
+
 ]
