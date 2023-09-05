@@ -27,7 +27,7 @@ with open(str(BASE_DIR) + "/secret_key.txt") as file:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["5.45.83.79",]
 
 
 # Application definition
@@ -124,10 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = PurePath.joinpath(BASE_DIR, 'static/')
-STATICFILES_DIRS = [
-            PurePath.joinpath(BASE_DIR, 'static/'),
-        ]
+STATIC_ROOT = PurePath.joinpath(BASE_DIR, 'static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
