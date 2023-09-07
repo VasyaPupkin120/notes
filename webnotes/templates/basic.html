@@ -14,86 +14,13 @@
     <body class="container-fluid body-base-color">
         <h1 class="page-header">Заметки</h1>
 
-        <!-- Блок горизонтальной навигации -->
-        <nav class="navbar navbar-base-color border border-grey navbar-expand-lg">
-            <a class="navbar-brand" href="/">Главная</a>
-            <a class="navbar-brand" href="{% url "note_create" %}">Добавить заметку</a>
-            {% if request.user.is_staff %}
-                <a class="navbar-brand" href="/admin">Админка</a>
-            {% endif %}
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-           </button>
-           <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-4">
-                    {% if request.user.is_authenticated %}
-                        <li class="dropdown show nav-item">
-                            <a class="nav-link dropdown-toggle"
-                                href="#"
-                                role="button"
-                                id="dropdownMenuLink"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">Профиль</a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-color" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item dropdown-item-color" href="#">Изменить личные данные</a>
-                                    <a class="dropdown-item dropdown-item-color" href="#">Изменить пароль</a>
-                                    <div class="dropdown-divider dropdown-item-color"></div>
-                                    <a class="dropdown-item dropdown-item-color" href={% url "logout" %}>Выйти</a>
-                                </div>
-                        </li>
-                        <li>
-                            <form class="form-inline my-2 my-lg-0" action={% url "search" %} method="get">
-                              {% csrf_token %}
-                              <input class="form-control mr-sm-2 navbar-search-field-color" name="field_search" type="text" placeholder="Search..." aria-label="Search">
-                              <button class="btn btn-outline-success my-2 my-sm-0 navbar-search-button-color" type="submit">Search</button>
-                            </form>
-                        </li>
-                    {% else %}
-                    <li class="nav-item"><a class="nav-link" href={% url "login" %}>Вход</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
-                    {% endif %}
-                </ul>
-              </div>
-        </nav>
-        <!-- Конец блока горизонтальной навигации -->
+        <!-- блок для горизонтальной навигации -->
+        {% block horizontal_nav %}
+        {% endblock %}
 
-        <!-- Поле основного контента -->
-        <br>
-        <div class="container-fluid content-base-color">
-            <div class="row border border-grey">
-
-                <!-- Блок основного контента -->
-                <div class="col-10 border border-grey">
-                    <p class="my-3"></p>
-                    {% block content %}
-                    {% endblock %}
-                    <p class="my-3"></p>
-                </div>
-
-                <!-- Поле облака тегов -->
-                <div class="col-2 border border-grey">
-                    <div class="mt-3">
-                    {% for tag in tags_cloud %}
-                        <a href="{{ tag.get_absolute_url }}" class="btn btn-light tag-button-color my-1">{{ tag.name }}</a>
-                    {% endfor %}
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-around align-self-end my-3">
-                        <a href="{% url "tag_list" %}" class="btn btn-light tag-button-color">Список тэгов</a>
-                        <a href="{% url "tag_create" %}" class="btn btn-light tag-button-color">Добавить тэг</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Конец блока основного контента -->
+        <!-- блок для основного контента -->
+        {% block body_block %}
+        {% endblock %}
 
         <!-- Блок футера -->
         <br>

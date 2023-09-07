@@ -1,6 +1,7 @@
-{% extends "main/base_main.html" %}
+<!-- Страничка логина сильно отличается от страничек с записями, поэтому наследуемся от базового шаблона -->
+{% extends "basic.html" %}
 {% load bootstrap4 %}
-{% block content %}
+{% block body_block %}
 <h2>Вход</h2>
 {% if user.is_authenticated %}
     <p>Вы уже выполнили вход</p>
