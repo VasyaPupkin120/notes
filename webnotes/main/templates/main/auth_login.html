@@ -1,16 +1,19 @@
 <!-- Страничка логина сильно отличается от страничек с записями, поэтому наследуемся от базового шаблона -->
 {% extends "basic.html" %}
 {% load bootstrap4 %}
+
 {% block body_block %}
-<h2>Вход</h2>
-{% if user.is_authenticated %}
-    <p>Вы уже выполнили вход</p>
-{% else %}
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form layout='vertical' %}
-        <input type="hidden" name="next" value={% url "index" %}>
-        <button type="submit" class="btn btn-primary btn-block">Log in</button>
-    </form>
-{% endif %}
+<div class="container-login">
+    <h2 class="text-center">Вход</h2>
+    {% if user.is_authenticated %}
+        <p>Вы уже выполнили вход</p>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form layout='vertical' %}
+            <input type="hidden" name="next" value={% url "index" %}>
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </form>
+    {% endif %}
+</div>
 {% endblock %}

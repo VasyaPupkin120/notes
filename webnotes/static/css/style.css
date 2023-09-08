@@ -231,3 +231,14 @@ head, h1 {
     color: #778899;
     border-color: #778899 !important;
 }
+
+
+/* параметры контейнера с полем ввода пароля при логине */
+.container-login {
+    max-width: 500px !important;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}

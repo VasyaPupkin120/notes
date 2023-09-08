@@ -23,64 +23,10 @@
         {% endblock %}
 
         <!-- Блок футера -->
-        <br>
-        <footer class="page-footer font-small  pt-4 footer-base-color border border-grey">
-            <!-- контент и ссылки -->
-            <div class="container-fluid text-center text-md-left">
-                <div class="row">
-                    <div class="col-md-6 mt-md-0 mt-3">
-                      <h5 class="text-uppercase">Footer Content</h5>
-                      <p>Here you can use rows and columns to organize your footer content.</p>
-                    </div>
-                    <hr class="clearfix w-100 d-md-none pb-3">
-                    <div class="col-md-3 mb-md-0 mb-3">
-                      <h5 class="text-uppercase">Ссылки</h5>
-                      <ul class="list-unstyled">
-                        <li> <a class="footer-link" href="/admin/">Панель администратора</a></li>
-                        <li> <a class="footer-link" href="https://github.com/VasyaPupkin120/notes/">Github</a></li>
-                      </ul>
-                    </div>
-                    <div class="col-md-3 mb-md-0 mb-3">
-                      <h5 class="text-uppercase">Ссылки</h5>
-                      <ul class="list-unstyled">
-                        <li> <a class="footer-link" href="#!">Link 1</a> </li>
-                        <li> <a class="footer-link" href="#!">Link 2</a> </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-            <!-- Копирайт -->
-            <div class="footer-copyright text-center py-3">© 2023 Copyright:
-              <a href="/">Notes</a>
-            </div>
-        </footer>
-        <!-- Конец блока футера -->
+        {% block footer_block %}
+        {% endblock %}
 
-
-        <!-- кнопка прокрутки вверх -->
-        <button onclick="topFunction()" id="myBtn" title="Go to top">Вверх</button> 
     </body>
-
-
-    <script>
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("myBtn").style.display = "block";
-            } else {
-                document.getElementById("myBtn").style.display = "none";
-            }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        function topFunction() {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-        } 
-    </script>
-
 </html>
 
 

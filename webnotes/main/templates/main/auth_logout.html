@@ -1,5 +1,13 @@
 <!-- наследуемся от наиболее общего шаблона - страничка логоффа сильно отличается от страничек с записями -->
 {% extends "basic.html" %}
 {% block body_block %}
-<p>Вы логофнулись</p>
+<h2 class="text-center">Отключение.</h2>
+
+<a href="/"><h4 class="text-center">На страницу логина.</h4></a>
+
+<script>
+setTimeout(function(){
+    location.href = '/';
+}, 3000);
+</script>
 {% endblock %}
