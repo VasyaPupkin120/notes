@@ -42,6 +42,14 @@ class NoteFormCreate(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def get_form(self, *args, **kwargs):
+        """
+        Переопределение нужно для проброса запроса request в форму NoteAddForm
+        для ограничения списка тегов только теми тегами, которые принадлежат текущему пользователю.
+        """
+        self.initial.update({"request": self.request})
+        return super().get_form(*args, **kwargs)
+
 
 
 
@@ -65,6 +73,15 @@ class NoteUpdate(UpdateView):
         current_author = self.request.user.pk
         notes_list = Note.objects.filter(author=current_author)
         return notes_list
+
+    def get_form(self, *args, **kwargs):
+        """
+        Переопределение нужно для проброса запроса request в форму NoteAddForm
+        для ограничения списка тегов только теми тегами, которые принадлежат текущему пользователю.
+        """
+        self.initial.update({"request": self.request})
+        print(self.initial)
+        return super().get_form(*args, **kwargs)
 
 
 class NoteDelete(DeleteView):
