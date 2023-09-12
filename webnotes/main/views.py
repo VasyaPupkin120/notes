@@ -25,7 +25,7 @@ class Index(ListView):
     template_name = "main/index.html"
     model = Note
     context_object_name = "notes_list"
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         current_author = self.request.user.pk
@@ -129,7 +129,7 @@ class TagList(ListView):
 class TagLinkPosts(ListView):
     template_name = "main/tag_link_posts.html"
     context_object_name = "notes_list"
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         current_author = self.request.user.pk
@@ -170,7 +170,7 @@ class SearchList(ListView):
     template_name = "main/search_list.html"
     model = Note
     context_object_name = "notes_list"
-    paginate_by: int = 2
+    paginate_by: int = 10
 
     # для отладки 
     # def get(self, *args, **kwargs):
