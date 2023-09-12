@@ -15,7 +15,7 @@
     </div>
     <div class="card-body card-light-color">
         <h5 class="card-title">{{ note.title }}</h5>
-        <p class="card-text">{{ note.content }}</p>
+        <p class="card-text">{{ note.content|linebreaks }}</p>
         <div class="d-flex justify-content-end">
             <a href="{% url "note_update" note.slug %}" class="btn btn-light tag-button-color mx-1">Редактировать</a>
             <a href="{% url "note_delete" note.slug %}" class="btn btn-light tag-button-color mx-1">Удалить</a>
