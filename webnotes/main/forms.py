@@ -1,12 +1,14 @@
 from django import forms
+from django.forms.widgets import TextInput, Textarea
 from .models import Tag, Note
 from django.core.exceptions import ValidationError
 
 class NoteAddForm(forms.ModelForm):
-    title = forms.CharField(label="Заголовок")
-    content = forms.Textarea()
+    title = forms.CharField(label="Заголовок", widget=TextInput(attrs={"class": "form-control forms-field-color"}))
+    content = forms.CharField(label="Содержание", widget=Textarea(attrs={"class": "form-control forms-field-color"}))
     # slug = forms.SlugField(label="Слаг")
     tags = forms.ModelMultipleChoiceField(queryset=None, label="Список тегов", widget=forms.CheckboxSelectMultiple, required=True)
+
 
     def __init__(self, *args, **kwargs):
         """
@@ -24,16 +26,11 @@ class NoteAddForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ('title', 'content', 'tags')
-        widgets = {
-                "title": forms.TextInput(attrs={"class": "form-control"}),
-                "content": forms.Textarea(attrs={"class": "form-control"}),
-                "author": forms.HiddenInput,
-                }
 
 
 
 class TagAddForm(forms.ModelForm):
-    name = forms.CharField(label="Тэг")
+    name = forms.CharField(label="Тэг", widget=TextInput(attrs={"class": "form-control forms-field-color"}))
     # slug = forms.SlugField(label="Слаг")
 
     def clean_slug(self):
@@ -47,7 +44,3 @@ class TagAddForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ('name',)
-        widgets = {
-                "name": forms.TextInput(attrs={"class": "form-control"}),
-                "author": forms.HiddenInput,
-                }

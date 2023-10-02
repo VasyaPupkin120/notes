@@ -242,3 +242,10 @@ head, h1 {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+
+/* тестовые поля форм ввода */
+.forms-field-color{
+    background: #EEE8AA !important;
+    color: #778899 !important;
+}
