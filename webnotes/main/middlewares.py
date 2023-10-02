@@ -29,8 +29,8 @@ def CheckAuthenticationMiddleware(next_mw):
                 response = next_mw(request)
                 return response
         else:
-            if request.path == "/login/":
-                # аналогично, просто выполняется вьюха аутентификации
+            if (request.path == "/login/") or ("/static/" in request.path):
+                # аналогично, просто выполняется вьюха аутентификации или запрос статического файла
                 response = next_mw(request)
                 return response
             else:
