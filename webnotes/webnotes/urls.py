@@ -34,5 +34,5 @@ if settings.DEBUG:
 
 # Включение поддержки статических и выгруженных файлов при поднятии сайта на uvicorn
 if not settings.DEBUG:
-    urlpatterns.append(path('static/<path:path>'), serve, {"insecure": True})
-    urlpatterns.append(path('media/<path:path>'), media_serve, {"document_root": settings.MEDIA_ROOT})
+    urlpatterns.append(path('static/<path:path>', serve, {"insecure": True}))
+    urlpatterns.append(path('media/<path:path>', media_serve, {"document_root": settings.MEDIA_ROOT}))
